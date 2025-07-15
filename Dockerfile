@@ -5,13 +5,14 @@ FROM node:18-alpine
 WORKDIR /app
 
 # 安装pnpm包管理器
-RUN npm install -g pnpm
+RUN npm install -g pnpm@9
 
 # 复制package.json和pnpm-lock.yaml到工作目录
 COPY backend/package.json backend/pnpm-lock.yaml ./
+COPY backend/patches ./patches
 
 # 安装依赖
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 # 复制backend源代码
 COPY backend/ ./
